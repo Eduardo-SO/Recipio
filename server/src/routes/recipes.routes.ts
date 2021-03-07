@@ -1,51 +1,16 @@
 import { Router } from 'express'
-// import { getRepository } from 'typeorm'
+import { getRepository } from 'typeorm'
 
-// import Question from '../models/Question'
-
-// import CreateQuestionService from '../services/CreateQuestionService'
-// import DeleteQuestionService from '../services/DeleteQuestionService'
+import Recipe from '../models/Recipe'
 
 const recipesRouter = Router()
 
-// questionsRouter.post('/', async (request, response) => {
-//   const { question, answers, correct_answer } = request.body
+recipesRouter.get('/', async (request, response) => {
+  const questionsRepository = getRepository(Recipe)
 
-//   try {
-//     const createQuestion = new CreateQuestionService()
+  const selectedQuestions = await questionsRepository.find()
 
-//     const questionCreated = await createQuestion.execute({
-//       question,
-//       answers,
-//       correct_answer
-//     })
-
-//     return response.json(questionCreated)
-//   } catch (err) {
-//     return response.status(400).json({ error: err.message })
-//   }
-// })
-
-// questionsRouter.get('/', async (request, response) => {
-//   const questionsRepository = getRepository(Question)
-
-//   const selectedQuestions = await questionsRepository.find()
-
-//   return response.json(selectedQuestions)
-// })
-
-// questionsRouter.delete('/:id', async (request, response) => {
-//   const { id } = request.params
-
-//   try {
-//     const deleteQuestionService = new DeleteQuestionService()
-
-//     const question = await deleteQuestionService.execute({ id })
-
-//     return response.json(question)
-//   } catch (err) {
-//     return response.status(400).json({ error: err.message })
-//   }
-// })
+  return response.json(selectedQuestions)
+})
 
 export default recipesRouter
